@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Books - Library System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap">
+    <link href="../assets/img/Logo.jpg" rel="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .book-card { transition: all 0.3s ease; }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-950 text-amber-400 flex-shrink-0">
+            <div class="p-4 border-b border-amber-700 flex items-center space-x-3">
+                <img src="../assets/img/Logo.jpg" alt="Library Logo" class="w-10 h-10 rounded-full border-2 border-amber-300">
+                <h2 class="text-xl font-bold">Library User</h2>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li><a href="user-dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-amber-700 transition"><i class="fas fa-tachometer-alt w-5"></i><span>Dashboard</span></a></li>
+                    <li><a href="user-books.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-amber-600 text-white"><i class="fas fa-book w-5"></i><span>Browse Books</span></a></li>
+                    <li><a href="user-transactions.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-amber-700 transition"><i class="fas fa-exchange-alt w-5"></i><span>My Transactions</span></a></li>
+                    <li><a href="user-profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-amber-700 transition"><i class="fas fa-user w-5"></i><span>Profile</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto">
+            <!-- Header -->
+            <header class="bg-gray-900 shadow-sm p-4 flex items-center justify-between border-b border-amber-700">
+                <h1 class="text-2xl font-bold text-amber-400">Browse Books</h1>
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-800 text-amber-300">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <div class="relative">
+                        <div id="userAvatar" class="w-10 h-10 rounded-full bg-amber-600 flex items-center justify-center text-white cursor-pointer"></div>
+                        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-gray-900 text-white rounded-md shadow-lg z-10 border border-gray-700">
+                            <a href="user-profile.html" class="block px-4 py-2 hover:bg-gray-800"><i class="fas fa-user mr-2"></i> Profile</a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 hover:bg-gray-800"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Welcome Section -->
+            <div class="p-8 flex flex-col lg:flex-row items-center justify-center min-h-[calc(100vh-120px)]">
+                <!-- Text Content -->
+                <div class="flex-1 space-y-8 text-center lg:text-left max-w-xl">
+                    <blockquote class="text-3xl md:text-4xl italic text-amber-400 font-serif leading-tight">
+                        "A library is not a luxury but one of the necessities of life."
+                    </blockquote>
+                    <p class="text-amber-300 font-medium">— Henry Ward Beecher</p>
+                    <p class="text-lg text-amber-200 leading-relaxed">
+                        Search and explore our collection of books, journals, and digital resources. Find your next read below!
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mt-6">
+                        <a href="#booksList" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
+                            📚 Browse All Books
+                        </a>
+                        <a href="user-dashboard.html" class="bg-amber-600 text-white px-6 py-3 rounded-lg shadow hover:bg-amber-700 transition">
+                            🏠 Back to Dashboard
+                        </a>
+                    </div>
+                </div>
+                <!-- Book Image -->
+                <div class="flex-1 flex justify-center lg:justify-end mt-10 lg:mt-0">
+                    <img 
+                        src="../assets/img/books.jpg" 
+                        alt="Library Bookshelf" 
+                        class="w-full max-w-md rounded-xl shadow-xl object-cover"
+                    />
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+                <!-- Search and Filter Section -->
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                    <div class="relative flex-grow">
+                        <input type="text" id="bookSearch" placeholder="Search by title, author, ISBN or genre..." class="w-full pl-10 pr-4 py-2 border border-amber-500 rounded-md bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-amber-500 focus:border-amber-500" />
+                        <i class="fas fa-search absolute left-3 top-3 text-amber-300"></i>
+                    </div>
+                    <div class="flex gap-2">
+                        <select id="genreFilter" class="border border-amber-500 rounded-md px-3 py-2 bg-black text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            <option value="">All Genres</option>
+                        </select>
+                        <select id="availabilityFilter" class="border border-amber-500 rounded-md px-3 py-2 bg-black text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                            <option value="">All Books</option>
+                            <option value="available">Available Only</option>
+                        </select>
+                        <button id="bookSearchBtn" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-md shadow-md whitespace-nowrap">
+                            <i class="fas fa-filter mr-2"></i>Filter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Book Details Modal -->
+                <div id="bookDetailsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                    <div class="bg-gray-900 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-amber-700">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 id="modalBookTitle" class="text-xl font-bold text-amber-400"></h3>
+                                <button id="closeModal" class="text-amber-300 hover:text-amber-500">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <img id="modalBookCover" src="" alt="Book cover" class="w-full h-auto max-h-96 object-contain rounded-lg shadow-md">
+                                </div>
+                                <div>
+                                    <div class="space-y-3">
+                                        <p><strong class="text-amber-400">Author:</strong> <span id="modalBookAuthor"></span></p>
+                                        <p><strong class="text-amber-400">Genre:</strong> <span id="modalBookGenre"></span></p>
+                                        <p><strong class="text-amber-400">ISBN:</strong> <span id="modalBookIsbn"></span></p>
+                                        <p><strong class="text-amber-400">Availability:</strong> <span id="modalBookAvailability"></span></p>
+                                        <p><strong class="text-amber-400">Description:</strong></p>
+                                        <p id="modalBookDescription" class="text-amber-200"></p>
+                                    </div>
+                                    <div class="mt-6 flex flex-wrap gap-3">
+                                        <button id="borrowBtn" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-md shadow-md">
+                                            <i class="fas fa-book-reader mr-2"></i>Borrow Book
+                                        </button>
+                                        <button id="closeModalBtn" class="border border-amber-400 hover:bg-amber-700 px-4 py-2 rounded-md shadow-md">
+                                            Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="hidden flex justify-center items-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden text-center py-12">
+                    <i class="fas fa-book-open text-5xl text-amber-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-amber-300">No books found</h3>
+                    <p class="text-amber-200 mt-2">Try adjusting your search or filter criteria</p>
+                </div>
+
+                <!-- Books List -->
+                <div id="booksList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+
+                <!-- Pagination -->
+                <div id="booksPagination" class="mt-6 flex justify-center items-center gap-2"></div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/user.js"></script>
+    <script type="module" src="../assets/js/theme.js"></script>
+    <script>
+        // Handle modal closing when clicking outside
+        document.getElementById('bookDetailsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

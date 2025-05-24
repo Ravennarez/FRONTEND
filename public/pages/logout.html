@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging Out - Library System</title>
+    <style>
+        .logout-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .logout-message {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+     <!-- Favicons -->
+  <link href="assets/img/Logo.jpg" rel="icon">
+  <link href="assets/img/Logo.jpg" rel="Logo-SorSu-icon">
+    <link href="assets/img/Logo.jpg" rel="apple-touch-icon">
+</head>
+<body>
+    <div class="logout-container">
+        <div class="spinner"></div>
+        <div class="logout-message">Logging you out...</div>
+    </div>
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        // Immediately attempt logout when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const token = localStorage.getItem('token');
+                
+                if (token) {
+                    // Attempt to send logout request to backend
+                    await fetch('http://localhost:8000/api/auth/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Accept': 'application/json'
+                        }
+                    });
+                }
+                
+                // Clear frontend authentication tokens
+                localStorage.removeItem('token');
+                
+                // Redirect to login page after a brief delay
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Logout error:', error);
+                // Even if logout fails, clear token and redirect
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

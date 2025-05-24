@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users - Library System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" />
+    <link href="../assets/img/Logo.jpg" rel="icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-950 text-orange-400 flex-shrink-0">
+            <div class="p-4 border-b border-orange-600 flex items-center space-x-3">
+                <img src="../assets/img/Logo.jpg" alt="Library Logo" class="w-10 h-10 rounded-full border-2 border-orange-300" />
+                <h2 class="text-xl font-bold">Library Admin</h2>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li><a href="admin-dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-orange-700 transition"><i class="fas fa-tachometer-alt w-5"></i><span>Dashboard</span></a></li>
+                    <li><a href="admin-books.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-orange-700 transition"><i class="fas fa-book w-5"></i><span>Books</span></a></li>
+                    <li><a href="admin-users.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-orange-600 text-white"><i class="fas fa-users w-5"></i><span>Users</span></a></li>
+                    <li><a href="admin-transactions.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-orange-700 transition"><i class="fas fa-exchange-alt w-5"></i><span>Transactions</span></a></li>
+                    <li><a href="admin-profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-orange-700 transition"><i class="fas fa-user w-5"></i><span>Profile</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto">
+            <!-- Header -->
+            <header class="bg-gray-900 shadow-sm p-4 flex items-center justify-between border-b border-orange-600">
+                <h1 class="text-2xl font-bold text-orange-400">Manage Users</h1>
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-800 text-orange-300">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                    <div class="relative">
+                        <div id="userAvatar" class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center text-white cursor-pointer"></div>
+                        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-gray-900 text-white rounded-md shadow-lg z-10 border border-gray-700">
+                            <a href="admin-profile.html" class="block px-4 py-2 hover:bg-gray-800"><i class="fas fa-user mr-2"></i> Profile</a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 hover:bg-gray-800"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="p-6">
+                <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                    <div class="relative flex-grow">
+                        <input type="text" id="userSearch" placeholder="Search users..." class="w-full pl-10 pr-4 py-2 border border-orange-500 rounded-md bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500" />
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <button id="userSearchBtn" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md shadow-md whitespace-nowrap">Search</button>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden border border-gray-800">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-700">
+                            <thead class="bg-gray-800">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-orange-300 uppercase tracking-wider">Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-orange-300 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-orange-300 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-orange-300 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable" class="bg-black divide-y divide-gray-800 text-white"></tbody>
+                        </table>
+                    </div>
+                    <div id="usersPagination" class="px-6 py-3 border-t border-gray-800 flex items-center justify-between text-orange-300"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="../assets/js/admin.js"></script>
+    <script type="module" src="../assets/js/theme.js"></script>
+</body>
+</html>

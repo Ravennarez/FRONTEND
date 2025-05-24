@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Library System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap">
+    <link href="../assets/img/Logo.jpg" rel="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(185, 123, 74, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar w-64 bg-[#3a2e26] text-white flex-shrink-0">
+            <div class="p-4 border-b border-amber-800 flex items-center space-x-3">
+                <img src="../assets/img/Logo.jpg" alt="Library Logo" class="w-10 h-10 rounded-full border-2 border-amber-200">
+                <h2 class="text-xl font-bold">Library Admin</h2>
+            </div>
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="admin-dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-amber-800 hover:text-white transition">
+                            <i class="fas fa-tachometer-alt w-5 text-center"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-books.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-amber-800 hover:text-white transition">
+                            <i class="fas fa-book w-5 text-center"></i>
+                            <span>Books</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-users.html" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-primary-700 hover:text-white transition">
+                            <i class="fas fa-users w-5 text-center"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-transactions.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-amber-800 hover:text-white transition">
+                            <i class="fas fa-exchange-alt w-5 text-center"></i>
+                            <span>My Transactions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin-profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-amber-700 text-white">
+                            <i class="fas fa-user w-5 text-center"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-auto">
+            <!-- Header -->
+            <header class="bg-white dark:bg-gray-800 shadow-sm p-4 flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-[#3a2e26] dark:text-amber-200">My Profile</h1>
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block text-amber-300"></i>
+                    </button>
+                    <div class="user-menu relative">
+                        <div class="user-avatar cursor-pointer w-10 h-10 rounded-full bg-amber-600 flex items-center justify-center text-white" id="userAvatar"></div>
+                        <div class="user-dropdown hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 border dark:border-gray-700">
+                            <a href="admin-profile.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-user mr-2"></i> Profile
+                            </a>
+                            <a href="#" id="logoutBtn" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Profile Form -->
+            <div class="max-w-2xl mx-auto p-6 space-y-6">
+                <!-- Profile Information Form -->
+                <form id="profileForm" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 border dark:border-gray-700">
+                    <h2 class="text-xl font-bold mb-6 text-[#3a2e26] dark:text-amber-200">Profile Information</h2>
+                    <div class="mb-6">
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" required
+                            class="input-field w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="input-field w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div class="form-actions mt-8">
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md font-medium transition duration-300 shadow-md hover:shadow-lg">
+                            Update Profile
+                        </button>
+                    </div>
+                    <div id="profileMessage" class="mt-4 p-3 rounded-md text-center text-sm font-medium transition-all duration-300"></div>
+                </form>
+
+                <!-- Change Password Form -->
+                <form id="passwordForm" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 border dark:border-gray-700">
+                    <h2 class="text-xl font-bold mb-6 text-[#3a2e26] dark:text-amber-200">Change Password</h2>
+                    <div class="mb-6 relative">
+                        <label for="currentPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
+                        <input type="password" id="currentPassword" name="current_password" required
+                            class="input-field w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 dark:bg-gray-700 dark:text-white">
+                        <i  data-target="currentPassword"></i>
+                    </div>
+                    <div class="mb-6 relative">
+                        <label for="newPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
+                        <input type="password" id="newPassword" name="password" required minlength="8"
+                            class="input-field w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 dark:bg-gray-700 dark:text-white">
+                        <i data-target="newPassword"></i>
+                    </div>
+                    <div class="mb-6 relative">
+                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="password_confirmation" required minlength="8"
+                            class="input-field w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 dark:bg-gray-700 dark:text-white">
+                        <i  data-target="confirmPassword"></i>
+                    </div>
+                    <div class="form-actions mt-8">
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-2 px-4 rounded-md font-medium transition duration-300 shadow-md hover:shadow-lg">
+                            Change Password
+                        </button>
+                    </div>
+                    <div id="passwordMessage" class="mt-4 p-3 rounded-md text-center text-sm font-medium transition-all duration-300"></div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script type="module">
+        import { API_BASE_URL, showMessage, makeRequest, loadUserData, initCommonUI } from '../assets/js/utils.js';
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize common UI
+            initCommonUI();
+            
+            // Load user data
+            const user = await loadUserData();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Set user avatar
+            const userAvatar = document.getElementById('userAvatar');
+            if (userAvatar) {
+                userAvatar.textContent = user.name.charAt(0).toUpperCase();
+            }
+            
+            // Populate form
+            document.getElementById('name').value = user.name;
+            document.getElementById('email').value = user.email;
+            
+            // Handle profile form submission
+            document.getElementById('profileForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+                
+                try {
+                    await makeRequest(`${API_BASE_URL}/auth/users/${user.id}`, 'PUT', data, true);
+                    showMessage('Profile updated successfully!', 'success', 'profileMessage');
+                } catch (error) {
+                    showMessage(error.message, 'error', 'profileMessage');
+                }
+            });
+
+            // Handle password form submission
+            document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Check if new passwords match
+                if (data.password !== data.password_confirmation) {
+                    showMessage('New passwords do not match', 'error', 'passwordMessage');
+                    return;
+                }
+                
+                try {
+                    await makeRequest(`${API_BASE_URL}/auth/change-password`, 'POST', {
+                        current_password: data.current_password,
+                        new_password: data.password,
+                        new_password_confirmation: data.password_confirmation
+                    }, true);
+                    
+                    showMessage('Password changed successfully!', 'success', 'passwordMessage');
+                    e.target.reset();
+                } catch (error) {
+                    showMessage(error.message || 'Failed to change password', 'error', 'passwordMessage');
+                }
+            });
+
+            // Password toggle functionality
+            document.querySelectorAll('.password-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const passwordInput = document.getElementById(targetId);
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    // Toggle eye icon
+                    this.classList.toggle('fa-eye-slash');
+                    this.classList.toggle('fa-eye');
+                });
+            });
+
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            // Check for saved theme preference or use system preference
+            const savedTheme = localStorage.getItem('theme') || 
+                              (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            html.classList.add(savedTheme);
+            
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                const theme = html.classList.contains('dark') ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+            });
+
+            // Toggle user dropdown
+            userAvatar.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelector('.user-dropdown').classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                document.querySelector('.user-dropdown').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

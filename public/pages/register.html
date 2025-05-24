@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Library System - Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" />
+  <link rel="icon" href="../assets/img/Logo.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    body { font-family: 'Roboto', sans-serif; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md bg-gray-900 rounded-lg shadow-lg p-8 border border-orange-600">
+    <div class="flex flex-col items-center mb-8">
+      <img src="../assets/img/Logo.jpg" alt="Library Logo" class="w-16 h-16 rounded-full border-2 border-orange-300 mb-3" />
+      <h1 class="text-3xl font-bold text-orange-400">Library Portal</h1>
+      <p class="text-sm text-orange-200 mt-1">Create your library account</p>
+    </div>
+    <h2 class="text-xl font-semibold text-center text-orange-300 mb-6 border-b border-orange-700 pb-2">Register</h2>
+    <form id="registerForm" class="space-y-5">
+      <div>
+        <label for="name" class="block text-sm font-medium text-orange-200 mb-1">Full Name</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i class="fas fa-user text-orange-300"></i>
+          </span>
+          <input type="text" id="name" name="name" required
+            class="w-full pl-10 pr-4 py-3 border border-orange-500 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+            placeholder="Juan Dela Cruz"/>
+        </div>
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-orange-200 mb-1">Email Address</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i class="fas fa-envelope text-orange-300"></i>
+          </span>
+          <input type="email" id="email" name="email" required
+            class="w-full pl-10 pr-4 py-3 border border-orange-500 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+            placeholder="student@gmail.com"/>
+        </div>
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-orange-200 mb-1">Password</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i class="fas fa-lock text-orange-300"></i>
+          </span>
+          <input type="password" id="password" name="password" required minlength="8"
+            class="w-full pl-10 pr-10 py-3 border border-orange-500 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+            placeholder="••••••••"/>
+          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-orange-300 hover:text-orange-400" onclick="togglePassword('password')">
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="password_confirmation" class="block text-sm font-medium text-orange-200 mb-1">Confirm Password</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i class="fas fa-lock text-orange-300"></i>
+          </span>
+          <input type="password" id="password_confirmation" name="password_confirmation" required minlength="8"
+            class="w-full pl-10 pr-10 py-3 border border-orange-500 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+            placeholder="••••••••"/>
+          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-orange-300 hover:text-orange-400" onclick="togglePassword('password_confirmation')">
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
+      </div>
+      <button type="submit"
+        class="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-lg text-lg font-semibold shadow-md transition duration-200">
+        Register
+      </button>
+    </form>
+    <div id="error-message" class="mt-2 text-sm text-red-700 bg-red-100 border border-red-300 rounded-md px-4 py-3 hidden shadow-md transition-all duration-300 ease-in-out">
+      <!-- Error message will appear here -->
+    </div>
+    <div class="mt-6 text-center text-sm">
+      <p class="text-orange-200">Already have an account?</p>
+      <a href="../pages/login.html" class="font-medium text-orange-400 hover:text-orange-300">Sign in here →</a>
+    </div>
+    <footer class="mt-8 text-xs text-orange-200 text-center opacity-80">
+      <p>&copy; 2025 University Library. All rights reserved.</p>
+      <p class="mt-1">Knowledge · Discovery · Inspiration</p>
+    </footer>
+  </div>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    function togglePassword(fieldId) {
+      const passwordField = document.getElementById(fieldId);
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+    }
+  </script>
+</body>
+</html>
